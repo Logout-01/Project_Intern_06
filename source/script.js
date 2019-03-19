@@ -47,7 +47,7 @@ window.onload = function () {
         phys.setup = function(){
             phys.createCanvas(400, 400);
         };
-        phys.speed = 5;
+        var speed = 5;
         phys.draw = function(){
             phys.background(0);
             function createObj(){
@@ -55,9 +55,11 @@ window.onload = function () {
                 phys.noStroke();
                 phys.ellipse(x, y, 25);
             }
-            if(x>phys.width || x < 0){
-                var colorB = phys.random(0, 255);
-                phys.speed = -phys.speed;
+            if(x > phys.width || x < 0){
+                speed = -speed;
+                var colorR = phys.random(0,255);
+                var colorG = phys.random(0,255);
+                var colorB = phys.random(0,255);
             }
             x = x + speed;
             createObj();
