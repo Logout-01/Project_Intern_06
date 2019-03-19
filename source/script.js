@@ -23,7 +23,7 @@ window.onload = function () {
         
         $.setup = function () {
             $.createCanvas(400, 400);
-            $.background(0);
+            $.background(100);
             $.fill(255);
             $.text("Click to change color", 140, 170);
         };
@@ -43,26 +43,51 @@ window.onload = function () {
 
     var physicSketch = function (phys) {
         
-        var x = 140, y = 170;
+        var first_circle, distance;
+
+        function Circle(velocity, x, y){
+            this.velocity = velocity;
+            this.x = x;
+            this.y = y;
+            this.show = function(){
+                phys.noStroke();
+                phys.ellipse(this.x,this.y,25);
+            }
+            this.moveX = function(){
+                if(this.x > phys.width - 13 || this.x < 13){
+                    this.velocity = -(this.velocity);
+                    phys.fill(phys.random(255), phys.random(255), phys.random(255));
+                }
+                this.x += this.velocity;
+            }
+        }
+
         phys.setup = function(){
             phys.createCanvas(400, 400);
+            first_circle = new Circle(2, 40, 170);
+            second_circle = new Circle(-2, 360,170);
         };
-        var speed = 5;
+        
         phys.draw = function(){
+            var colorR = phys.random(0,255);
+            var colorG = phys.random(0,255);
+            var colorB = phys.random(0,255);
             phys.background(0);
-            function createObj(){
-                phys.fill(colorR, colorG, colorB);
-                phys.noStroke();
-                phys.ellipse(x, y, 25);
+            phys.line(first_circle.x, first_circle.y, second_circle.x, second_circle.y);
+            first_circle.show();
+            first_circle.moveX();
+            second_circle.show();
+            second_circle.moveX();
+            distance = Math.sqrt((first_circle.x - second_circle.x)*(first_circle.x - second_circle.x)+(first_circle.y - second_circle.y)*(first_circle.y - second_circle.y));
+            let string = phys.map(distance, 25, 350, 10, 2);
+            let stringColor = phys.map(distance, 25, 350, 150,255);
+            phys.stroke(stringColor);
+            phys.strokeWeight(string);
+            if(distance < 25){
+                first_circle.velocity = -(first_circle.velocity);
+                second_circle.velocity = -(second_circle.velocity);
+                phys.fill(phys.random(255), phys.random(255), phys.random(255));
             }
-            if(x > phys.width || x < 0){
-                speed = -speed;
-                var colorR = phys.random(0,255);
-                var colorG = phys.random(0,255);
-                var colorB = phys.random(0,255);
-            }
-            x = x + speed;
-            createObj();
         };
             
      }
