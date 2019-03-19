@@ -24,6 +24,8 @@ window.onload = function () {
         $.setup = function () {
             $.createCanvas(400, 400);
             $.background(0);
+            $.fill(255);
+            $.text("Click to change color", 140, 170);
         };
         
         $.draw = function () {
@@ -41,7 +43,7 @@ window.onload = function () {
 
     var physicSketch = function (phys) {
         
-        var x = phys.mouseX, y = phys.mouseY;
+        var x = 140, y = 170;
         phys.setup = function(){
             phys.createCanvas(400, 400);
         }
@@ -55,7 +57,9 @@ window.onload = function () {
             y = y + phys.random(-3,3);
             phys.fill(colorR, colorG, colorB);
             // phys.mousePressed = function(){
-                phys.ellipse(x,y,25);
+                phys.ellipse(x, y, 25);
+                phys.ellipse(x, y, 25);
+                phys.ellipse(x, y, 25);
             // }
         };
             
