@@ -46,24 +46,24 @@ window.onload = function () {
         var x = 140, y = 170;
         phys.setup = function(){
             phys.createCanvas(400, 400);
-        }
+        };
+        phys.speed = 5;
         phys.draw = function(){
-            var colorR = phys.random(0, 255);
-            var colorG = phys.random(0, 255);
-            var colorB = phys.random(0, 255);
             phys.background(0);
-            phys.noStroke();
-            x = x + phys.random(-3,3);
-            y = y + phys.random(-3,3);
-            phys.fill(colorR, colorG, colorB);
-            // phys.mousePressed = function(){
+            function createObj(){
+                phys.fill(colorR, colorG, colorB);
+                phys.noStroke();
                 phys.ellipse(x, y, 25);
-                phys.ellipse(x, y, 25);
-                phys.ellipse(x, y, 25);
-            // }
+            }
+            if(x>phys.width || x < 0){
+                var colorB = phys.random(0, 255);
+                phys.speed = -phys.speed;
+            }
+            x = x + speed;
+            createObj();
         };
             
-        }
+     }
 
     var first_sketch = new p5(simpleSketch, 'first-sketch-container');
     var second_sketch = new p5(touchSketch, 'second-sketch-container');
